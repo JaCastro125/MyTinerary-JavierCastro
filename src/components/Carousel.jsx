@@ -26,10 +26,10 @@ export default function Carousel() {
 
   return (
     <div className="flex justify-center items-center w-full max-w-screen-md mx-auto relative pb-6">
+      
       <button onClick={prevSlide} className="m-2 p-2 bg-gray-400 rounded-full">
         &lt;
       </button>
-
       <div className="col-span-2 grid md:grid-cols-2 gap-1">
         {carouselData
           .slice(
