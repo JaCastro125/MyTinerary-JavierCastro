@@ -13,6 +13,18 @@ export default function Carousel() {
       .catch((error) => console.error("Error loading carousel data:", error));
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((currentSlideIndex) =>
+        currentSlideIndex < totalSlide - 1 ? currentSlideIndex + 1 : 0
+      );
+    }, 3000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [currentSlide]);
+
   const prevSlide = () => {
     setCurrentSlide((currentSlideIndex) =>
       currentSlideIndex > 0 ? currentSlideIndex - 1 : totalSlide - 1
@@ -26,7 +38,6 @@ export default function Carousel() {
 
   return (
     <div className="flex justify-center items-center w-full max-w-screen-md mx-auto relative pb-6">
-      
       <button onClick={prevSlide} className="m-2 p-2 bg-gray-400 rounded-full">
         &lt;
       </button>
