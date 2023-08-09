@@ -23,7 +23,28 @@ export default function NavBar() {
         />
         <span className="text-x1 font-semibold">My Tinerary</span>
       </div>
-      <div className="w-full h-auto text-center py-4">
+      <div className="w-full h-auto text-center">
+        <button
+          className="p-1 border-sky-800 border-[1px] rounded-md"
+          onClick={handleShowMenu}
+        >
+          Show menu
+        </button>
+        {show && (
+          <div className="flex justify-center mt-2">
+            {links.map((link) => (
+              <Link
+                className="text-sky-100 hover:text-indigo-600 mx-4"
+                key={link.title}
+                to={link.to}
+              >
+                {link.title}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+      {/* <div className="w-full h-auto text-center py-4">
         <button
           className="p-2 border-sky-800 border-[1px] rounded-md"
           onClick={handleShowMenu}
@@ -41,7 +62,7 @@ export default function NavBar() {
               </Link>
             ))
           : null}
-      </div>
+      </div> */}
       <div className="avatar items-center">
         <div className="w-10 h-10 rounded-full">
           <a href="/signin">
