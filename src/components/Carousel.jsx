@@ -55,7 +55,7 @@ export default function Carousel() {
               <img
                 src={item.image}
                 alt={`${item.country} - ${item.city}`}
-                className="w-full h-full object-cover rounded"
+                className=" h-[40vh] object-cover rounded w-[60vh]"
               />
               <div className="absolute top-0 left-0 w-full h-20 bg-black bg-opacity-30 text-white flex items-center justify-center">
                 <div className="text-center">

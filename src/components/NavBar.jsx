@@ -7,8 +7,6 @@ export default function NavBar() {
   const links = [
     { title: "Home", to: "/" },
     { title: "Cities", to: "/cities" },
-    /* { title: <img src="../public/logo/login.png" alt="Logo" className="w-8 h-8 rounded-full"/>, to: "/signin" } */
-    ,
   ];
 
   const handleShowMenu = () => {
@@ -44,7 +42,14 @@ export default function NavBar() {
             ))
           : null}
       </div>
-      <div className="py-4 pr-2">
+      <div className="avatar items-center">
+        <div className="w-10 h-10 rounded-full">
+          <a href="/signin">
+            <img src="../public/logo/login.png" alt="logo" />
+          </a>
+        </div>
+      </div>
+      {/* <div className="py-4 pr-2">
         <a href="/signin">
           <img
             src="../public/logo/login.png"
@@ -52,7 +57,7 @@ export default function NavBar() {
             className="w-9 h-8 rounded-full"
           />
         </a>
-      </div>
+      </div> */}
     </header>
   );
 }

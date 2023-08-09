@@ -6,8 +6,15 @@ export default function Home() {
   return (
     <div className="back_img flex flex-col items-center">
       <Card />
-      <h1 className="p-8 font-serif text-2xl shadow-xl">Your best trip at a one click</h1>
-      <h3 className="p-8 font-serif text-2xl shadow-2xl">Popular Mytineraries</h3>
+
+      <div class="text-5xl font-bold mt-6">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-300">
+        Your best trip at a one click
+        </span>
+      </div>
+      <h3 className="p-8 font-serif text-2xl shadow-2xl">
+        Popular Mytineraries
+      </h3>
       <Carousel />
     </div>
   );
