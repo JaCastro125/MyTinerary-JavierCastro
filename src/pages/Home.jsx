@@ -7,8 +7,8 @@ export default function Home() {
     <div className="back_img flex flex-col items-center">
       <Card />
 
-      <div class="text-5xl font-bold mt-6">
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-300">
+      <div className="text-5xl font-bold mt-6">
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-300">
         Your best trip at a one click
         </span>
       </div>
