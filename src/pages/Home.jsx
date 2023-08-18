@@ -8,7 +8,7 @@ export default function Home() {
       <Card />
 
       <div className="text-5xl font-bold mt-6">
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-300">
+        <span className="bg-clip-text text-transparent text-center bg-gradient-to-r from-pink-500 to-violet-300 ">
         Your best trip at a one click
         </span>
       </div>

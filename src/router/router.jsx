@@ -3,6 +3,8 @@ import Home from "../pages/Home";
 import Cities from "../pages/Cities";
 import Main from "../layouts/Main";
 import SignIn from "../pages/SignIn";
+import Detail from "../pages/Detail"
+
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/SignIn",
         element: <SignIn />,
+      },
+      {
+        path: "/detail/:id", 
+        element: <Detail />,
       },
       {
         path: "*",
