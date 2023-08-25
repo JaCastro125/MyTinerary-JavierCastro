@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function NavBar() {
+
   const links = [
     { title: "Home", to: "/" },
     { title: "Cities", to: "/cities" },
   ];
-
+  
   const [menuOpen, setMenuOpen] = useState(false);
+  const photo = useSelector(store => store.userReducer.photo)
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -56,7 +59,7 @@ export default function NavBar() {
       <div className="avatar items-center">
         <div className="w-10 h-10 rounded-full">
           <a href="/signin">
-            <img src="../public/logo/login.png" alt="logo" />
+            <img src={photo} alt="avatar_photo" />
           </a>
         </div>
       </div>
