@@ -9,15 +9,15 @@ export default function CardDetail({ itinerary }) {
 
     return (
         <div className="card bg-base-200 rounded-lg shadow-md">
-            <div className="card-body p-4">
+            <div className="card-body p-4 flex justify-center">
                 <h2 className="text-center text-xl font-bold mb-2">{itinerary.name}</h2>
-                <div className="">
+                <div className="flex flex-col items-center">
                     <img
                         src={itinerary.user.image}
                         alt={itinerary.user.name}
                         className="w-10 h-10 rounded-full"
                     />
-                    <p className="text-base font-semibold">Author: {itinerary.user.name}</p>
+                    <p className="text-base font-semibold pt-2">Author: {itinerary.user.name}</p>
                 </div>
                 <p className='flex flex-wrap'>Price :
                     {Array.from({ length: itinerary.price }).map((_id, index) => (
@@ -41,7 +41,7 @@ export default function CardDetail({ itinerary }) {
                     {Array.isArray(itinerary.hashtags)
                         ? itinerary.hashtags.map((tag, index) => (
                             <span key={index} className="bg-blue-500 text-white rounded-full px-2 py-1 m-1 text-xs">
-                                {tag}
+                                #{tag}
                             </span>
                         )) : null}
                 </div>
@@ -54,18 +54,40 @@ export default function CardDetail({ itinerary }) {
                     </button>
                 </div>
                 {expanded && (
-                    <div className="flex flex-wrap justify-center gap-2">
-                        {itinerary.activities.map((activity, index) => (
-                            <div key={index} className="card w-64 bg-white shadow-md rounded-lg">
-                                <figure>
-                                    <img src={activity.photo} alt={activity.name} className="w-full h-40 object-cover rounded-t-lg" />
-                                </figure>
-                                <div className="card-body p-2">
-                                    <h2 className="text-center text-sm font-semibold">{activity.name}</h2>
+                    <>
+                        <div className="flex flex-wrap justify-center gap-2">
+                            {itinerary.activities.map((activity, index) => (
+                                <div key={index} className="card w-64 bg-white shadow-md rounded-lg">
+                                    <figure>
+                                        <img src={activity.photo} alt={activity.name} className="w-full h-40 object-cover rounded-t-lg" />
+                                    </figure>
+                                    <div className="card-body p-2 text-black">
+                                        <h2 className="text-center text-sm font-semibold">{activity.name}</h2>
+                                    </div>
                                 </div>
+                            ))}
+                        </div>
+                        <div>
+                            <h2 className="text-xl font-semibold mt-4">Comments:</h2>
+                            {itinerary.comments.map((comment, index) => (
+                                <div key={index} className="border p-2 mt-2">
+                                    <p className="text-gray-700">{comment.comment}</p>
+                                    <p className="text-gray-500">Usuario: {comment.user.name}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="mt-4">
+                            <h2 className="text-xl font-semibold">Leave your comment:</h2>
+                            <div className="flex">
+                                <input
+                                    type="text"
+                                    placeholder="Write your comment"
+                                    className="w-full border p-2 rounded-l"
+                                />
+                                <button className="bg-blue-500 text-white px-4 py-2 rounded-r">Send</button>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    </>
                 )}
             </div>
         </div>

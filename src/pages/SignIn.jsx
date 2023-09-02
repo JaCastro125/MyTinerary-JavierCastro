@@ -1,17 +1,21 @@
 import { useDispatch } from "react-redux"
 import { user_photo } from "../store/actions/userActions"
+import { useNavigate } from "react-router-dom";
 
 
 export default function SignIn() {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSignIn = () => {
+  const handleSignIn = (event) => {
+    event.preventDefault()
     const user = {
       photo: 'https://images.ecestaticos.com/s0CFtyY5oBXNdkephC8s6jp8B6s=/0x0:620x349/557x418/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2Fe00%2Fb36%2Fa06%2Fe00b36a0612fccd33ecee6767be30fa3.jpg'
     }
     dispatch(user_photo(user))
     console.log(user);
+    navigate('/')
   }
 
   return (
