@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function CardCity({ image, country, city, id, comment }) {
+export default function CardCity({ image, country, city, id }) {
     return (
         <article className="relative overflow-hidden rounded-lg max-w-[500px] h-[40vh] w-[50vh]">
             <img

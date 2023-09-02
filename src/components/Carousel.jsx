@@ -7,7 +7,7 @@ export default function Carousel() {
   const slidesPerPage = 4;
 
   useEffect(() => {
-    fetch("../src/components/cities.json")
+    fetch("../src/json_data/cities.json")
       .then((response) => response.json())
       .then((data) => setCarouselData(data.data))
       .catch((error) => console.error("Error loading carousel data:", error));

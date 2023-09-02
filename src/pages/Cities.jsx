@@ -3,6 +3,7 @@ import axios from "axios";
 import HeroCity from "../components/HeroCity";
 import CardCity from "../components/CardCity";
 
+
 export default function Cities() {
   const [cities, setCities] = useState();
 
@@ -53,26 +54,9 @@ export default function Cities() {
       <HeroCity></HeroCity>
       <div className="flex justify-center items-center pt-5">
         <span className="input input-primary flex items-center gap-">
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="3"
-              d="M21 21l-4.35-4.35M8 15a7 7 0 100-14 7 7 0 000 14z"
-            ></path>
+          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M21 21l-4.35-4.35M8 15a7 7 0 100-14 7 7 0 000 14z"></path>
           </svg>
-          <input
-            name='input-search'
-            ref={inputSearch}
-            type="text"
-            placeholder="Search your city"
-            className="bg-transparent focus-visible:outline-0"
+          <input name='input-search' ref={inputSearch} type="text" placeholder="Search your city" className="bg-transparent focus-visible:outline-0"
           />
           <button
             onClick={inputChange}
