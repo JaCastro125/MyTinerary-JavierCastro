@@ -1,27 +1,33 @@
-import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import HeroCity from "../components/HeroCity";
 import CardCity from "../components/CardCity";
-
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { get_cities, filter_cities } from "../store/actions/cityActions";
 
 export default function Cities() {
-  const [cities, setCities] = useState();
+
+  const cities = useSelector((store) => store.cityReducer.cities)
+
+  const dispatch = useDispatch();
 
   let inputSearch = useRef();
 
   //traemos datos del API
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/api/cities")
-      .then((response) => setCities(response.data.cities))
-      .catch((err) => console.log(err));
-  }, []);
+    dispatch(get_cities());
+  }, [dispatch]);
 
   // reseteo de cities
   const resetCities = async () => {
     try {
       const response = await axios.get("http://localhost:3000/api/cities");
-      setCities(response.data.cities);
+      dispatch({
+        type: 'get_cities/fulfilled',
+        payload: {
+          cities: response.data.cities
+        }
+      });
       inputSearch.current.value = "";
     } catch (error) {
       console.log(error);
@@ -29,20 +35,15 @@ export default function Cities() {
   };
 
   //busqueda
-  const inputChange = async (city) => {
-
-    const name = inputSearch.current.value;
-    console.log(inputSearch.current.name);
-
+  const inputChange = () => {
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/cities?country=${name}`
-      );
-      setCities(response.data.cities);
+      dispatch(filter_cities({
+        name: inputSearch.current.value
+      }))
+
     } catch (error) {
       if (error.response.status === 404) {
         console.log('Dont found cities in response');
-        setCities([])
       } else {
         console.log(error);
       }
@@ -74,19 +75,22 @@ export default function Cities() {
         </button>
       </div>
       <div className="flex flex-wrap justify-center p-5 gap-2">
-        {cities?.map((city) => {
-          return (
-            <div key={city._id}>
-              <CardCity
-                image={city.image}
-                country={city.country}
-                city={city.city}
-                id={city._id}
-                comment={city.comment}
-              />
-            </div>
-          );
-        })}
+        {cities.length > 0 ? (
+          cities.map((city) => {
+            return (
+              <div key={city._id}>
+                <CardCity
+                  image={city.image}
+                  country={city.country}
+                  city={city.city}
+                  id={city._id}
+                  comment={city.comment}
+                />
+              </div>
+            )
+          })
+        )
+          : <h2>Dont found cities</h2>}
       </div>
     </>
   );
