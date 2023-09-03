@@ -23,8 +23,6 @@ export default function Detail() {
         return <div>Loading...</div>;
     }
 
-    console.log(cityData)
-
     return (
         <div className="flex flex-col justify-center min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${cityData.image})` }}>
             <div className="w-full h-[23vh] bg-black bg-opacity-60 text-white flex flex-col justify-center items-center text-center">
@@ -32,7 +30,7 @@ export default function Detail() {
                 <h2 className="text-xl font-medium mb-2">{cityData.city}</h2>
                 <p className="text-lg">{cityData.comment}</p>
             </div>
-            <Link to={`/cities/`}>
+            <Link to={`/cities/`} className='flex justify-center'>
                 <button
                     className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4  focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-4 mt-4'>Back
                 </button>
