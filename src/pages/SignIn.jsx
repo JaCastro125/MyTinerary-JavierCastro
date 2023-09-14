@@ -1,86 +1,161 @@
-import { useDispatch } from "react-redux"
-import { user_photo } from "../store/actions/userActions"
-import { useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { user_login, user_logup, user_google } from "../store/actions/userActions";
+import { useState, useEffect } from 'react';
+import countriesData from '../json_data/countries.json';
+import GoogleSignin from "../components/GoogleSignin";
+import '../styles/login.css'
 
 export default function SignIn() {
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [countries, setCountries] = useState([]);
+  const [activeTab, setActiveTab] = useState('signin');
 
-  const handleSignIn = (event) => {
-    event.preventDefault()
-    const user = {
-      photo: 'https://images.ecestaticos.com/s0CFtyY5oBXNdkephC8s6jp8B6s=/0x0:620x349/557x418/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2Fe00%2Fb36%2Fa06%2Fe00b36a0612fccd33ecee6767be30fa3.jpg'
-    }
-    dispatch(user_photo(user))
+  const store = useSelector(store => store.userReducer)
 
-    navigate('/')
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    name: '',
+    image: '',
+    country: ''
+  })
+
+  useEffect(() => {
+    setCountries(countriesData.countries);
+  }, []);
+
+  const handleInput = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value
+    })
   }
+
+  const handleSignIn = async (event) => {
+    event.preventDefault()
+
+    try {
+      dispatch(user_login({
+        data: formData
+      }))
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleSignUp = async (event) => {
+    event.preventDefault()
+
+    const requiredFields = ['name', 'email', 'password', 'image', 'country'];
+
+    try {
+      dispatch(user_logup({
+        data: formData
+      }))
+    } catch (error) {
+      console.log("Error al enviar la solicitud:", error);
+    }
+  }
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
 
   return (
     <>
-      <div className="card card-body card-bordered bg-slate-400 flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
-          </h2>
-        </div>
+      <div className="w-90 mx-auto max-w-2xl min-h-screen relative bg-center bg-cover rounded-lg shadow-md overflow-hidden">
+        <div className="p-10 bg-opacity-90">
+          <input
+            id="tab-1"
+            type="radio"
+            name="tab"
+            className="sign-in hidden"
+            onChange={() => handleTabChange('signin')}
+            checked={activeTab === 'signin'} />
+          <label
+            htmlFor="tab-1"
+            className={`tab text-2xl uppercase cursor-pointer mr-5 ${activeTab === 'signin' ? 'bg-blue-500 text-white rounded-box' : 'bg-gray-200 text-gray-700 rounded-box'}`}
+            onClick={() => handleTabChange('signin')}>
+            Sign In
+          </label>
+          <input
+            id="tab-2"
+            type="radio"
+            name="tab"
+            className="sign-up hidden"
+            onChange={() => handleTabChange('signup')}
+            checked={activeTab === 'signup'} />
+          <label
+            htmlFor="tab-2"
+            className={`tab text-2xl uppercase cursor-pointer ${activeTab === 'signup' ? 'bg-blue-500 text-white rounded-box' : 'bg-gray-200 text-gray-700 rounded-box'}`}
+            onClick={() => handleTabChange('signup')}>
+            Sign Up
+          </label>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+          <form
+            onSubmit={handleSignIn}
+            className="login-form mt-5">
+            <div className="sign-in-htm" style={{ display: activeTab === 'signin' ? 'block' : 'none' }}>
+              <div className="sign-in-htm">
+                <div className="group mt-5">
+                  <label htmlFor="signin-username" className="label">Username</label>
+                  <input id="signin-username" type="email" name="email" className="input" placeholder="name@domain.com" onChange={handleInput} value={formData.email} />
+                </div>
+                <div className="group">
+                  <label htmlFor="signin-password" className="label">Password</label>
+                  <input id="signin-password" type="password" name="password" className="input" data-type="password" onChange={handleInput} value={formData.password} />
+                </div>
+                <div className="flex flex-col items-center mt-10">
+                  <GoogleSignin />
+                  <div className="group mt-5">
+                    <button type="submit" className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white" onClick={handleSignIn} >
+                      Sign in
+                    </button>
+                  </div>
+                </div>
+                <div className="hr"></div>
               </div>
             </div>
+          </form>
 
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
-                </label>
-                <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                    Forgot password?
-                  </a>
+
+          <form
+            onSubmit={handleSignUp}
+            className="login-form mt-5">
+            <div className="sign-up-htm" style={{ display: activeTab === 'signup' ? 'block' : 'none' }}>
+              <div className="group">
+                <label htmlFor="signup-name" className="label">Fullname</label>
+                <input id="signup-name" type="text" name="name" className="input" onChange={handleInput} />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="group">
+                  <label htmlFor="signup-country" className="label">Country</label>
+                  <select id="signup-country" name="country" className="input" onChange={handleInput}>
+                    {countries.map((country, index) => (
+                      <option key={index} value={country}>{country}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="group">
+                  <label htmlFor="signup-password" className="label">Password</label>
+                  <input id="signup-password" name="password" type="password" className="input" data-type="password" onChange={handleInput} />
                 </div>
               </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+              <div className="group">
+                <label htmlFor="signup-email" className="label">Email Address</label>
+                <input id="signup-email" type="text" name="email" className="input" placeholder="name@domain.com" onChange={handleInput} />
               </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                onClick={handleSignIn}
-              >
-                Sign in
-              </button>
+              <div className="group">
+                <label htmlFor="signup-avatar" className="label">Avatar (link)</label>
+                <input id="signup-avatar" type="text" name="image" className="input" placeholder="https://domain.com/image.jpg" onChange={handleInput} />
+              </div>
+              <div className="group mt-10 flex justify-center">
+                <button type="submit" className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white" onClick={handleSignUp} >
+                  Sign up
+                </button>
+              </div>
+              <div className="hr"></div>
             </div>
           </form>
         </div>
@@ -88,3 +163,4 @@ export default function SignIn() {
     </>
   )
 }
+

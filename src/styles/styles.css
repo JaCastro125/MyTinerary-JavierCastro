@@ -1,19 +1,36 @@
 .back_img {
-    background-image: url("./img/fondo1.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  background-image: url("./img/fondo1.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .back_img_cities {
-    background-image: url(https://img77.uenicdn.com/image/upload/v1596212885/business/76a8db78-10bf-4103-a59f-0f7146dd6cd8.jpg);
-    background-size: cover;
-    background-position: center;
-    height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.back_img_cities {
+  background-image: url(https://img77.uenicdn.com/image/upload/v1596212885/business/76a8db78-10bf-4103-a59f-0f7146dd6cd8.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#signup-country:focus {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#signup-country::after {
+  content: '\25BC';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#signup-country:focus::after {
+  color: white;
+}

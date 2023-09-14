@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  color: #6a6f8c;
+  background: ;
+  font: 500 16px/18px "Open Sans", sans-serif;
+}
+
+.login-html .tab,
+.login-form .group .label,
+.login-form .group .button {
+  text-transform: uppercase;
+}
+.login-form .group {
+  margin-bottom: 15px;
+}
+.login-form .group .label,
+.login-form .group .input,
+.login-form .group .button {
+  width: 100%;
+  color: #fff;
+  display: block;
+}
+.login-form .group .input,
+.login-form .group .button {
+  border: none;
+  padding: 15px 20px;
+  border-radius: 55px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.hr {
+  height: 2px;
+  margin: 35px 0 20px 0;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.haAclf{
+  background: red !important;
+}

@@ -1,9 +1,9 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { user_photo } from '../actions/userActions';
+import { user_photo, user_login, user_google, user_token, user_logout, user_logup } from '../actions/userActions';
 
 const initialState = {
-    name: 'Agustin',
-    photo: 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
+    user: null,
+    token: null
 }
 
 const userReducer = createReducer(initialState,
@@ -12,6 +12,39 @@ const userReducer = createReducer(initialState,
             return {
                 ...state,
                 photo: action.payload.photo
+            }
+        })
+        .addCase(user_login.fulfilled, (state, action) => {
+            return {
+                ...state,
+                user: action.payload.user,
+                token: action.payload.token
+            }
+        })
+        .addCase(user_logup.fulfilled, (state, action) => {
+            return {
+                ...state,
+                user: action.payload.user,
+                token: action.payload.token
+            }
+        })
+        .addCase(user_google, (state, action) => {
+            return {
+                ...state,
+                user: action.payload.user,
+                token: action.payload.token
+            }
+        })
+        .addCase(user_token, (state, action) => {
+            return {
+                ...state,
+                user: action.payload.user,
+            }
+        })
+        .addCase(user_logout, () => {
+            return {
+                user: null,
+                token: null
             }
         })
 )
