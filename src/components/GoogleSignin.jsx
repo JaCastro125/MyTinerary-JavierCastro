@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { useEffect } from "react"
 import { useDispatch } from "react-redux";
 import { user_google } from "../store/actions/userActions";
+import '../styles/login.css'
 
 export default function GoogleSignin() {
 
@@ -39,6 +40,6 @@ export default function GoogleSignin() {
     }, [])
 
     return (
-        <div ref={googleButton} className=""></div>
+        <div style={{ colorScheme: 'light' }} ref={googleButton} className="" ></div>
     )
 }
